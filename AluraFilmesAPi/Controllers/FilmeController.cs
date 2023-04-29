@@ -41,6 +41,7 @@ namespace AluraFilmesAPi.Controllers
          /// Pesquisa todos os filmes criados
          /// </summary>
          /// <param name="skip">Objeto necessário para pesquisa</param>
+         /// <param name="take"></param>
          /// <returns>IEnumerable</returns>
          /// <response code="200">Se a pesquisa for um sucesso</response>
         [HttpGet]
