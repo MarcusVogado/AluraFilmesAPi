@@ -1,6 +1,7 @@
 ﻿using AluraFilmesAPi.Data;
 using AluraFilmesAPi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace AluraFilmesAPi.Controllers
@@ -50,8 +51,13 @@ namespace AluraFilmesAPi.Controllers
             if (filmeExist == null)
             {
                 return NotFound("Filme não Encontrado");
-            }                      
-            _data.Filmes.Update(filme);
+            }              
+            filmeExist.Titulo= filme.Titulo;
+            filmeExist.Genero = filme.Genero;
+            filmeExist.Duracao = filme.Duracao;          
+            filmeExist.Diretor= filme.Diretor;
+
+            _data.Filmes.Update(filmeExist);
             await _data.SaveChangesAsync();
             return Ok("FilmeAtualizado");
 
