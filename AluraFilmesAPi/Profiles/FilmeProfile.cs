@@ -9,6 +9,8 @@ namespace AluraFilmesAPi.Profiles
         public FilmeProfile()
         {
             CreateMap<FilmeDTO,Filme>();
+            CreateMap<Filme,FilmeDTO>();
+
         } 
     }
 }
