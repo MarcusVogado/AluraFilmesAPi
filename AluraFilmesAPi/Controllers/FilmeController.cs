@@ -20,8 +20,6 @@ namespace AluraFilmesAPi.Controllers
             _data = data;
             _mapper = mapper;
         }
-
-
         [HttpPost]
         [Route("AddFilme")]
         public IActionResult AdicionarFilme([FromBody] FilmeDTO filmeDTO)
@@ -47,7 +45,6 @@ namespace AluraFilmesAPi.Controllers
             if (filme == null) { return NotFound("Nenhum Filme Encontrado"); }
             return Ok(filme);
         }
-
         [HttpPut]
         [Route("AttFilme")]
         public async Task<IActionResult> AttFilme([FromBody] Filme filme)
@@ -68,7 +65,5 @@ namespace AluraFilmesAPi.Controllers
             return Ok("FilmeAtualizado");
 
         }
-
-
     }
 }
