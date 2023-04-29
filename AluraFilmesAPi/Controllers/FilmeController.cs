@@ -1,5 +1,7 @@
 ﻿using AluraFilmesAPi.Data;
+using AluraFilmesAPi.Data.Dtos;
 using AluraFilmesAPi.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -12,17 +14,20 @@ namespace AluraFilmesAPi.Controllers
     public class FilmeController : ControllerBase
     {
         private FilmeContext _data;
-        public FilmeController(FilmeContext data)
+        private IMapper _mapper;
+        public FilmeController(FilmeContext data,IMapper mapper)
         {
             _data = data;
+            _mapper = mapper;
         }
 
 
         [HttpPost]
         [Route("AddFilme")]
-        public IActionResult AdicionarFilme([FromBody] Filme filme)
+        public IActionResult AdicionarFilme([FromBody] FilmeDTO filmeDTO)
         {
-
+            
+            Filme filme =_mapper.Map<Filme>(filmeDTO);
             _data.Filmes.Add(filme);
             _data.SaveChanges();
             return CreatedAtAction(nameof(GetFilmeId), new { id = filme.Id }, filme);
@@ -47,6 +52,7 @@ namespace AluraFilmesAPi.Controllers
         [Route("AttFilme")]
         public async Task<IActionResult> AttFilme([FromBody] Filme filme)
         {
+
             var filmeExist = await _data.Filmes.FindAsync(filme.Id);
             if (filmeExist == null)
             {
